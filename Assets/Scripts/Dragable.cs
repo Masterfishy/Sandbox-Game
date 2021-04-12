@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class Dragable : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
     public bool m_removeable;
 
+    protected bool m_editMode;
+    
     private GameManager m_gm;
     private bool m_drag;
-    private bool m_editMode;
 
     private void Awake()
     {

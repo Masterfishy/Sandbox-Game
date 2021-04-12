@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
 
     public void MakeBlock()
     {
-        // TODO Spawn a grouudn
         Transform _camera = Camera.main.transform;
         if (_camera && m_groundPrefab)
         {
