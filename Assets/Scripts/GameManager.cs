@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool m_editMode;
 
-    private GameObject m_selectedObject;
+    private Dragable m_selectedObject;
 
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         Transform _camera = Camera.main.transform;
         if (_camera && m_groundPrefab)
         {
-            Vector3 _pos = new Vector3(_camera.position.x, _camera.position.y);
+            Vector3 _pos = new Vector3(Mathf.Round(_camera.position.x), Mathf.Round(_camera.position.y));
             Instantiate(m_groundPrefab, _pos, Quaternion.identity, transform);
         }
     }
@@ -52,22 +52,21 @@ public class GameManager : MonoBehaviour
         Transform _camera = Camera.main.transform;
         if (_camera && m_finishLinePrefab)
         {
-            Vector3 _pos = new Vector3(_camera.position.x, _camera.position.y);
+            Vector3 _pos = new Vector3(Mathf.Round(_camera.position.x), Mathf.Round(_camera.position.y));
             Instantiate(m_finishLinePrefab, _pos, Quaternion.identity, transform);
         }
     }
 
-    public void SetSelected(GameObject go)
+    public void SetSelected(Dragable go)
     {
         m_selectedObject = go;
     }
 
     public void RemoveSelected()
     {
-        if (m_selectedObject && !m_selectedObject.CompareTag("Start"))
+        if (m_selectedObject)
         {
-            Destroy(m_selectedObject);
-            SetSelected(null);
+            m_selectedObject.Remove();
         }
     }
 }

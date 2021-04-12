@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Dragable : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
+    public bool m_removeable;
+
     private GameManager m_gm;
     private bool m_drag;
     private bool m_editMode;
@@ -15,15 +17,18 @@ public class Dragable : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
         m_editMode = true;
 
         m_gm = FindObjectOfType<GameManager>();
-        m_gm.OnEdit.AddListener(() => m_editMode = true);
-        m_gm.OnPlay.AddListener(() => m_editMode = false);
+        if (m_gm)
+        {
+            m_gm.OnEdit.AddListener(() => m_editMode = true);
+            m_gm.OnPlay.AddListener(() => m_editMode = false);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (m_editMode)
         {
-            m_gm.SetSelected(gameObject);
+            m_gm.SetSelected(this);
         }
     }
 
@@ -40,6 +45,15 @@ public class Dragable : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         m_drag = false;
+    }
+
+    public void Remove()
+    {
+        if (m_removeable)
+        {
+            StopAllCoroutines();
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator MoveToMouse()

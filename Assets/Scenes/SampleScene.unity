@@ -570,7 +570,7 @@ MonoBehaviour:
     m_Bits: 256
   m_speed: 5
   m_jump: 5
-  m_groundDistance: 0.51
+  m_groundDistance: 0.52
 --- !u!1 &197563219
 GameObject:
   m_ObjectHideFlags: 0
